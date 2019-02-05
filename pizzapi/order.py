@@ -1,7 +1,7 @@
 import requests
 
 from .menu import Menu
-from .urls import Urls, COUNTRY_USA 
+from .urls import Urls, COUNTRY_USA
 
 
 # TODO: Add add_coupon and remove_coupon methods
@@ -10,8 +10,9 @@ class Order(object):
 
     The Order is perhaps the second most complicated class - it wraps
     up all the logic for actually placing the order, after we've
-    determined what we want from the Menu. 
+    determined what we want from the Menu.
     """
+
     def __init__(self, store, customer, address, country=COUNTRY_USA):
         self.store = store
         self.menu = Menu.from_store(store_id=store.id, country=country)
@@ -33,7 +34,7 @@ class Order(object):
             'Partners': {}, 'NewUser': True, 'metaData': {}, 'Amounts': {},
             'BusinessDate': '', 'EstimatedWaitMinutes': '',
             'PriceOrderTime': '', 'AmountsBreakdown': {}
-            }
+        }
 
     # TODO: Implement item options
     # TODO: Add exception handling for KeyErrors
@@ -65,7 +66,7 @@ class Order(object):
             FirstName=self.customer.first_name,
             LastName=self.customer.last_name,
             Phone=self.customer.phone,
-            #Address=self.address.street
+            # Address=self.address.street
 
         )
 
@@ -88,7 +89,8 @@ class Order(object):
                     self.data[key] = value
         return json_data
 
-    # TODO: Figure out if this validates anything that self.urls.price_url() does not
+    # TODO: Figure out if this validates anything that self.urls.price_url()
+    # does not
     def validate(self):
         response = self._send(self.urls.validate_url(), True)
         return response['Status'] != -1
@@ -104,11 +106,11 @@ class Order(object):
         """Use this instead of self.place when testing"""
         # get the price to check that everything worked okay
         response = self._send(self.urls.price_url(), True)
-        
+
         if response['Status'] == -1:
             raise Exception('get price failed: %r' % response)
 
-        if card == False:
+        if not card:
             self.data['Payments'] = [
                 {
                     'Type': 'Cash',
@@ -126,4 +128,4 @@ class Order(object):
                     'PostalCode': int(card.zip)
                 }
             ]
-    return response
+return response
