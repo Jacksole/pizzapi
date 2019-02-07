@@ -12,3 +12,11 @@ install:
 # command to run tests
 script:
   - pipenv run python pytest
+  
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: 576c47f63b64e80b364099b86c8177892fa82c95
+  keep-history: true
+  on:
+    branch: master
