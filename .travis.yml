@@ -8,7 +8,7 @@ os:
   - osx
 # command to install dependencies
 install:
-  - pipenv install 
+  - pipenv install codecov
 # command to run tests
 script:
   - pipenv run python pytest
@@ -20,3 +20,6 @@ deploy:
   keep-history: true
   on:
     branch: master
+# Push the results back to codecov
+after_success:
+  - codecov

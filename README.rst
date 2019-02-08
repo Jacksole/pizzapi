@@ -1,3 +1,6 @@
+.. image:: https://codecov.io/gh/codecov/example-python/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/codecov/example-python
+  
 pizzapi
 =======
 
@@ -86,3 +89,4 @@ Or if you're just testing and don't want to actually order something, use ``.pay
 .. code-block:: python
 
     order.pay_with(card)
+
